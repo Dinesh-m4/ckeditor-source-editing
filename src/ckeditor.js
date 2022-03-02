@@ -3,6 +3,7 @@
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
+import Base64UploadAdapter from "@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter";
 import Autoformat from "@ckeditor/ckeditor5-autoformat/src/autoformat.js";
 import BlockQuote from "@ckeditor/ckeditor5-block-quote/src/blockquote.js";
 import Bold from "@ckeditor/ckeditor5-basic-styles/src/bold.js";
@@ -49,6 +50,7 @@ class Editor extends ClassicEditor {}
 // Plugins to include in the build.
 Editor.builtinPlugins = [
   Autoformat,
+  Base64UploadAdapter,
   BlockQuote,
   Bold,
   CKFinder,
