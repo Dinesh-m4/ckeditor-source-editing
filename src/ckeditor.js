@@ -19,13 +19,16 @@ import Heading from "@ckeditor/ckeditor5-heading/src/heading.js";
 import Highlight from "@ckeditor/ckeditor5-highlight/src/highlight.js";
 import HorizontalLine from "@ckeditor/ckeditor5-horizontal-line/src/horizontalline.js";
 import Image from "@ckeditor/ckeditor5-image/src/image.js";
-import ImageCaption from "@ckeditor/ckeditor5-image/src/imagecaption.js";
-import ImageStyle from "@ckeditor/ckeditor5-image/src/imagestyle.js";
-import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar.js";
-import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload.js";
+import ImageCaption from "@ckeditor/ckeditor5-image/src/imagecaption";
+import ImageInsert from "@ckeditor/ckeditor5-image/src/imageinsert";
+import ImageResize from "@ckeditor/ckeditor5-image/src/imageresize";
+import ImageStyle from "@ckeditor/ckeditor5-image/src/imagestyle";
+import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar";
+import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload";
 import Indent from "@ckeditor/ckeditor5-indent/src/indent.js";
 import Italic from "@ckeditor/ckeditor5-basic-styles/src/italic.js";
 import Link from "@ckeditor/ckeditor5-link/src/link.js";
+import LinkImage from "@ckeditor/ckeditor5-link/src/linkimage";
 import List from "@ckeditor/ckeditor5-list/src/list.js";
 import ListProperties from "@ckeditor/ckeditor5-list/src/listproperties.js";
 import MediaEmbed from "@ckeditor/ckeditor5-media-embed/src/mediaembed.js";
@@ -39,7 +42,6 @@ import Superscript from "@ckeditor/ckeditor5-basic-styles/src/superscript.js";
 import Table from "@ckeditor/ckeditor5-table/src/table.js";
 import TableToolbar from "@ckeditor/ckeditor5-table/src/tabletoolbar.js";
 import TextTransformation from "@ckeditor/ckeditor5-typing/src/texttransformation.js";
-import Title from "@ckeditor/ckeditor5-heading/src/title.js";
 import Underline from "@ckeditor/ckeditor5-basic-styles/src/underline.js";
 
 class Editor extends ClassicEditor {}
@@ -63,12 +65,15 @@ Editor.builtinPlugins = [
   HorizontalLine,
   Image,
   ImageCaption,
+  ImageInsert,
+  ImageResize,
   ImageStyle,
   ImageToolbar,
   ImageUpload,
   Indent,
   Italic,
   Link,
+  LinkImage,
   List,
   ListProperties,
   MediaEmbed,
@@ -108,7 +113,7 @@ Editor.defaultConfig = {
       "outdent",
       "indent",
       "|",
-      "imageUpload",
+      "insertImage",
       "blockQuote",
       "insertTable",
       "mediaEmbed",
