@@ -44,12 +44,14 @@ import Table from "@ckeditor/ckeditor5-table/src/table.js";
 import TableToolbar from "@ckeditor/ckeditor5-table/src/tabletoolbar.js";
 import TextTransformation from "@ckeditor/ckeditor5-typing/src/texttransformation.js";
 import Underline from "@ckeditor/ckeditor5-basic-styles/src/underline.js";
+import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 
 class Editor extends ClassicEditor {}
 
 // Plugins to include in the build.
 Editor.builtinPlugins = [
   Autoformat,
+  Alignment,
   Base64UploadAdapter,
   BlockQuote,
   Bold,
@@ -102,6 +104,7 @@ Editor.defaultConfig = {
       "fontFamily",
       "fontSize",
       "fontColor",
+      "alignment",
       "bold",
       "italic",
       "highlight",
