@@ -40,11 +40,13 @@ import SpecialCharacters from "@ckeditor/ckeditor5-special-characters/src/specia
 import Strikethrough from "@ckeditor/ckeditor5-basic-styles/src/strikethrough.js";
 import Subscript from "@ckeditor/ckeditor5-basic-styles/src/subscript.js";
 import Superscript from "@ckeditor/ckeditor5-basic-styles/src/superscript.js";
-import Table from "@ckeditor/ckeditor5-table/src/table.js";
-import TableToolbar from "@ckeditor/ckeditor5-table/src/tabletoolbar.js";
 import TextTransformation from "@ckeditor/ckeditor5-typing/src/texttransformation.js";
 import Underline from "@ckeditor/ckeditor5-basic-styles/src/underline.js";
 import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
+import Table from "@ckeditor/ckeditor5-table/src/table.js";
+import TableCellProperties from "@ckeditor/ckeditor5-table/src/tablecellproperties";
+import TableProperties from "@ckeditor/ckeditor5-table/src/tableproperties";
+import TableToolbar from "@ckeditor/ckeditor5-table/src/tabletoolbar.js";
 
 class Editor extends ClassicEditor {}
 
@@ -89,6 +91,8 @@ Editor.builtinPlugins = [
   Subscript,
   Superscript,
   Table,
+  TableCellProperties,
+  TableProperties,
   TableToolbar,
   TextTransformation,
   // Title,
@@ -119,8 +123,8 @@ Editor.defaultConfig = {
       "indent",
       "|",
       "insertImage",
-      "blockQuote",
       "insertTable",
+      "blockQuote",
       "mediaEmbed",
       "undo",
       "redo",
@@ -171,8 +175,8 @@ Editor.defaultConfig = {
       "tableColumn",
       "tableRow",
       "mergeTableCells",
-      "tableProperties",
       "tableCellProperties",
+      "tableProperties",
     ],
   },
   htmlSupport: {
