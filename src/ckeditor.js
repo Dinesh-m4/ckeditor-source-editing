@@ -162,6 +162,7 @@ Editor.defaultConfig = {
       "imageStyle:alignRight",
       "|",
       "imageTextAlternative",
+      "toggleImageCaption",
       "|",
       "resizeImage:50",
       "resizeImage:75",
