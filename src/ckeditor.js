@@ -12,9 +12,7 @@ import CKFinderUploadAdapter from "@ckeditor/ckeditor5-adapter-ckfinder/src/uplo
 import CloudServices from "@ckeditor/ckeditor5-cloud-services/src/cloudservices.js";
 import CodeBlock from "@ckeditor/ckeditor5-code-block/src/codeblock.js";
 import Essentials from "@ckeditor/ckeditor5-essentials/src/essentials.js";
-import FontColor from "@ckeditor/ckeditor5-font/src/fontcolor.js";
-import FontFamily from "@ckeditor/ckeditor5-font/src/fontfamily.js";
-import FontSize from "@ckeditor/ckeditor5-font/src/fontsize.js";
+import Font from "@ckeditor/ckeditor5-font/src/font";
 import GeneralHtmlSupport from "@ckeditor/ckeditor5-html-support/src/generalhtmlsupport";
 import Heading from "@ckeditor/ckeditor5-heading/src/heading.js";
 import Highlight from "@ckeditor/ckeditor5-highlight/src/highlight.js";
@@ -63,9 +61,7 @@ Editor.builtinPlugins = [
   CloudServices,
   CodeBlock,
   Essentials,
-  FontColor,
-  FontFamily,
-  FontSize,
+  Font,
   GeneralHtmlSupport,
   Heading,
   Highlight,
@@ -107,9 +103,10 @@ Editor.defaultConfig = {
     items: [
       "heading",
       "|",
-      "fontFamily",
       "fontSize",
+      "fontFamily",
       "fontColor",
+      "fontBackgroundColor",
       "alignment",
       "bold",
       "italic",
