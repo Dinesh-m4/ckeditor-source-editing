@@ -103,7 +103,6 @@ Editor.defaultConfig = {
     items: [
       "heading",
       "|",
-      "fontSize",
       "fontFamily",
       "fontColor",
       "fontBackgroundColor",
