@@ -46,6 +46,7 @@ import TableCellProperties from "@ckeditor/ckeditor5-table/src/tablecellproperti
 import TableProperties from "@ckeditor/ckeditor5-table/src/tableproperties";
 import TableToolbar from "@ckeditor/ckeditor5-table/src/tabletoolbar.js";
 import FullScreen from "./fullscreen-plugin";
+import { StrapiMediaLib } from "./strapi-medialib-plugin";
 
 class Editor extends ClassicEditor {}
 
@@ -95,6 +96,7 @@ Editor.builtinPlugins = [
   TextTransformation,
   // Title,
   Underline,
+  StrapiMediaLib,
 ];
 
 // Editor configuration.
@@ -120,7 +122,8 @@ Editor.defaultConfig = {
       "outdent",
       "indent",
       "|",
-      "insertImage",
+      // "insertImage",
+      "strapiMediaLib",
       "insertTable",
       "blockQuote",
       "mediaEmbed",
