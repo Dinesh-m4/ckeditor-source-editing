@@ -6,7 +6,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.
 import Base64UploadAdapter from "@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter";
 import Autoformat from "@ckeditor/ckeditor5-autoformat/src/autoformat.js";
 import BlockQuote from "@ckeditor/ckeditor5-block-quote/src/blockquote.js";
-import Bold from "@ckeditor/ckeditor5-basic-styles/src/bold.js";
 import CKFinder from "@ckeditor/ckeditor5-ckfinder/src/ckfinder.js";
 import CKFinderUploadAdapter from "@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js";
 import CloudServices from "@ckeditor/ckeditor5-cloud-services/src/cloudservices.js";
@@ -25,7 +24,6 @@ import ImageStyle from "@ckeditor/ckeditor5-image/src/imagestyle";
 import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar";
 import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload";
 import Indent from "@ckeditor/ckeditor5-indent/src/indent.js";
-import Italic from "@ckeditor/ckeditor5-basic-styles/src/italic.js";
 import Link from "@ckeditor/ckeditor5-link/src/link.js";
 import LinkImage from "@ckeditor/ckeditor5-link/src/linkimage";
 import List from "@ckeditor/ckeditor5-list/src/list.js";
@@ -35,11 +33,7 @@ import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph.js";
 import PasteFromOffice from "@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice.js";
 import SourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting.js";
 import SpecialCharacters from "@ckeditor/ckeditor5-special-characters/src/specialcharacters.js";
-import Strikethrough from "@ckeditor/ckeditor5-basic-styles/src/strikethrough.js";
-import Subscript from "@ckeditor/ckeditor5-basic-styles/src/subscript.js";
-import Superscript from "@ckeditor/ckeditor5-basic-styles/src/superscript.js";
 import TextTransformation from "@ckeditor/ckeditor5-typing/src/texttransformation.js";
-import Underline from "@ckeditor/ckeditor5-basic-styles/src/underline.js";
 import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
 import Table from "@ckeditor/ckeditor5-table/src/table.js";
 import TableCellProperties from "@ckeditor/ckeditor5-table/src/tablecellproperties";
@@ -47,6 +41,13 @@ import TableProperties from "@ckeditor/ckeditor5-table/src/tableproperties";
 import TableToolbar from "@ckeditor/ckeditor5-table/src/tabletoolbar.js";
 import FullScreen from "./fullscreen-plugin";
 import { StrapiMediaLib } from "./strapi-medialib-plugin";
+import Bold from "@ckeditor/ckeditor5-basic-styles/src/bold";
+import Italic from "@ckeditor/ckeditor5-basic-styles/src/italic";
+import Underline from "@ckeditor/ckeditor5-basic-styles/src/underline";
+import Strikethrough from "@ckeditor/ckeditor5-basic-styles/src/strikethrough";
+import Code from "@ckeditor/ckeditor5-basic-styles/src/code";
+import Subscript from "@ckeditor/ckeditor5-basic-styles/src/subscript";
+import Superscript from "@ckeditor/ckeditor5-basic-styles/src/superscript";
 
 class Editor extends ClassicEditor {}
 
@@ -57,6 +58,12 @@ Editor.builtinPlugins = [
   Base64UploadAdapter,
   BlockQuote,
   Bold,
+  Italic,
+  Underline,
+  Strikethrough,
+  Code,
+  Subscript,
+  Superscript,
   CKFinder,
   CKFinderUploadAdapter,
   CloudServices,
@@ -75,7 +82,6 @@ Editor.builtinPlugins = [
   ImageToolbar,
   ImageUpload,
   Indent,
-  Italic,
   Link,
   LinkImage,
   List,
@@ -85,9 +91,6 @@ Editor.builtinPlugins = [
   PasteFromOffice,
   SourceEditing,
   SpecialCharacters,
-  Strikethrough,
-  Subscript,
-  Superscript,
   FullScreen,
   Table,
   TableCellProperties,
@@ -95,7 +98,6 @@ Editor.builtinPlugins = [
   TableToolbar,
   TextTransformation,
   // Title,
-  Underline,
   StrapiMediaLib,
 ];
 
@@ -127,8 +129,6 @@ Editor.defaultConfig = {
       "insertTable",
       "blockQuote",
       "mediaEmbed",
-      "undo",
-      "redo",
       "sourceEditing",
       "horizontalLine",
       "specialCharacters",
@@ -136,6 +136,9 @@ Editor.defaultConfig = {
       "codeBlock",
       "htmlSupport",
       "fullScreen",
+      "undo",
+      "redo",
+      "code",
     ],
   },
   language: "en",
