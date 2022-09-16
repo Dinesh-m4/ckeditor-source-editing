@@ -24,7 +24,7 @@ import ImageStyle from "@ckeditor/ckeditor5-image/src/imagestyle";
 import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar";
 import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload";
 import Indent from "@ckeditor/ckeditor5-indent/src/indent.js";
-import Link from "@ckeditor/ckeditor5-link/src/link.js";
+// import Link from "@ckeditor/ckeditor5-link/src/link.js";
 import LinkImage from "@ckeditor/ckeditor5-link/src/linkimage";
 import List from "@ckeditor/ckeditor5-list/src/list.js";
 import ListProperties from "@ckeditor/ckeditor5-list/src/listproperties.js";
@@ -48,6 +48,8 @@ import Strikethrough from "@ckeditor/ckeditor5-basic-styles/src/strikethrough";
 import Code from "@ckeditor/ckeditor5-basic-styles/src/code";
 import Subscript from "@ckeditor/ckeditor5-basic-styles/src/subscript";
 import Superscript from "@ckeditor/ckeditor5-basic-styles/src/superscript";
+import Link from "@ckeditor/ckeditor5-link/src/link";
+import AutoLink from "@ckeditor/ckeditor5-link/src/autolink";
 
 class Editor extends ClassicEditor {}
 
@@ -83,6 +85,7 @@ Editor.builtinPlugins = [
   ImageUpload,
   Indent,
   Link,
+  AutoLink,
   LinkImage,
   List,
   ListProperties,
