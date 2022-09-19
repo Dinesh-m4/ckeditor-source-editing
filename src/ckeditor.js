@@ -32,6 +32,7 @@ import MediaEmbed from "@ckeditor/ckeditor5-media-embed/src/mediaembed.js";
 import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph.js";
 import PasteFromOffice from "@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice.js";
 import SourceEditing from "@ckeditor/ckeditor5-source-editing/src/sourceediting.js";
+// import RemoveFormat from "@ckeditor/ckeditor5-remove-format/src/removeformat";
 import SpecialCharacters from "@ckeditor/ckeditor5-special-characters/src/specialcharacters.js";
 import TextTransformation from "@ckeditor/ckeditor5-typing/src/texttransformation.js";
 import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
@@ -84,6 +85,7 @@ Editor.builtinPlugins = [
   ImageToolbar,
   ImageUpload,
   Indent,
+  // RemoveFormat,
   Link,
   AutoLink,
   LinkImage,
@@ -133,6 +135,7 @@ Editor.defaultConfig = {
       "blockQuote",
       "mediaEmbed",
       "sourceEditing",
+      // "removeFormat",
       "horizontalLine",
       "specialCharacters",
       "strikethrough",
