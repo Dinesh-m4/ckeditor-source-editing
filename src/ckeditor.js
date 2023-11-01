@@ -268,7 +268,7 @@ Editor.defaultConfig = {
         defaultValue: true,
         attributes: {
           target: "_blank",
-          rel: "noopener noreferrer",
+          rel: "noopener noreferrer nofollow",
         },
       },
       {
