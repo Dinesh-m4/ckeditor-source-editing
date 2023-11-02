@@ -268,7 +268,6 @@ Editor.defaultConfig = {
         defaultValue: true,
         attributes: {
           target: "_blank",
-          rel: "noopener noreferrer nofollow",
         },
       },
       {
@@ -276,6 +275,14 @@ Editor.defaultConfig = {
         label: "Downloadable",
         attributes: {
           download: "download",
+        },
+      },
+      {
+        mode: "manual",
+        label: "External link",
+        defaultValue: true,
+        attributes: {
+          rel: "noopener noreferrer nofollow",
         },
       },
     ],
