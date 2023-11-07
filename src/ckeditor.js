@@ -265,7 +265,6 @@ Editor.defaultConfig = {
       {
         mode: "manual",
         label: "Open in a new tab",
-        defaultValue: true,
         attributes: {
           target: "_blank",
         },
@@ -280,7 +279,6 @@ Editor.defaultConfig = {
       {
         mode: "manual",
         label: "External link",
-        defaultValue: true,
         attributes: {
           rel: "noopener noreferrer nofollow",
         },
