@@ -2,6 +2,8 @@
  * @license Copyright (c) 2014-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
+import SelectAll from "@ckeditor/ckeditor5-select-all/src/selectall";
+import FindandReplace from "@ckeditor/ckeditor5-find-and-replace/src/findandreplace";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
 import Base64UploadAdapter from "@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter";
 import Autoformat from "@ckeditor/ckeditor5-autoformat/src/autoformat.js";
@@ -23,7 +25,6 @@ import ImageResize from "@ckeditor/ckeditor5-image/src/imageresize";
 import ImageStyle from "@ckeditor/ckeditor5-image/src/imagestyle";
 import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar";
 import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload";
-import Indent from "@ckeditor/ckeditor5-indent/src/indent.js";
 // import Link from "@ckeditor/ckeditor5-link/src/link.js";
 import LinkImage from "@ckeditor/ckeditor5-link/src/linkimage";
 import List from "@ckeditor/ckeditor5-list/src/list.js";
@@ -51,8 +52,71 @@ import Subscript from "@ckeditor/ckeditor5-basic-styles/src/subscript";
 import Superscript from "@ckeditor/ckeditor5-basic-styles/src/superscript";
 import Link from "@ckeditor/ckeditor5-link/src/link";
 import AutoLink from "@ckeditor/ckeditor5-link/src/autolink";
+import { Indent, IndentBlock } from "@ckeditor/ckeditor5-indent";
 
 class Editor extends ClassicEditor {}
+
+function SpecialCharactersEmoji(editor) {
+  editor.plugins.get("SpecialCharacters").addItems(
+    "Emoji",
+    [
+      { title: "smiley face", character: "😊" },
+      { title: "rocket", character: "🚀" },
+      { title: "wind blowing face", character: "🌬️" },
+      { title: "floppy disk", character: "💾" },
+      { title: "heart", character: "❤️" },
+      { title: "thumbs up", character: "👍" },
+      { title: "star", character: "⭐" },
+      { title: "clapping hands", character: "👏" },
+      { title: "fire", character: "🔥" },
+      { title: "party popper", character: "🎉" },
+      { title: "sunglasses", character: "😎" },
+      { title: "winking face", character: "😉" },
+      { title: "thinking face", character: "🤔" },
+      { title: "red apple", character: "🍎" },
+      { title: "pencil", character: "✏️" },
+    ],
+    { label: "Emoticons" }
+  );
+}
+
+function SpecialCharactersExtended(editor) {
+  editor.plugins.get("SpecialCharacters").addItems("Mathematical", [
+    { title: "alpha", character: "α" },
+    { title: "beta", character: "β" },
+    { title: "gamma", character: "γ" },
+    { title: "delta", character: "δ" },
+    { title: "epsilon", character: "ε" },
+    { title: "pi", character: "π" },
+    { title: "sigma", character: "σ" },
+    { title: "theta", character: "θ" },
+    { title: "infinity", character: "∞" },
+    { title: "integral", character: "∫" },
+    { title: "square root", character: "√" },
+    { title: "approximately equal", character: "≈" },
+    { title: "less than or equal to", character: "≤" },
+    { title: "greater than or equal to", character: "≥" },
+  ]);
+
+  editor.plugins.get("SpecialCharacters").addItems("Currency", [
+    { title: "dollar sign", character: "$" },
+    { title: "euro sign", character: "€" },
+    { title: "pound sign", character: "£" },
+    { title: "yen sign", character: "¥" },
+    { title: "rupee sign", character: "₹" },
+    { title: "bitcoin sign", character: "₿" },
+  ]);
+
+  editor.plugins.get("SpecialCharacters").addItems("Arrows", [
+    { title: "right arrow", character: "→" },
+    { title: "left arrow", character: "←" },
+    { title: "up arrow", character: "↑" },
+    { title: "down arrow", character: "↓" },
+    { title: "double-headed arrow", character: "↔" },
+    { title: "curved arrow", character: "↩" },
+    { title: "circular arrow", character: "↺" },
+  ]);
+}
 
 // Plugins to include in the build.
 Editor.builtinPlugins = [
@@ -84,7 +148,6 @@ Editor.builtinPlugins = [
   ImageStyle,
   ImageToolbar,
   ImageUpload,
-  Indent,
   RemoveFormat,
   Link,
   AutoLink,
@@ -96,6 +159,8 @@ Editor.builtinPlugins = [
   PasteFromOffice,
   SourceEditing,
   SpecialCharacters,
+  SpecialCharactersEmoji,
+  SpecialCharactersExtended,
   FullScreen,
   Table,
   TableCellProperties,
@@ -104,12 +169,18 @@ Editor.builtinPlugins = [
   TextTransformation,
   // Title,
   StrapiMediaLib,
+  FindandReplace,
+  SelectAll,
+  Indent,
+  IndentBlock,
 ];
 
 // Editor configuration.
 Editor.defaultConfig = {
   toolbar: {
     items: [
+      "findandReplace",
+      "SelectAll",
       "heading",
       "|",
       "fontFamily",
@@ -125,10 +196,6 @@ Editor.defaultConfig = {
       "subscript",
       "superscript",
       "underline",
-      "|",
-      "outdent",
-      "indent",
-      "|",
       // "insertImage",
       "strapiMediaLib",
       "insertTable",
@@ -145,6 +212,8 @@ Editor.defaultConfig = {
       "redo",
       "code",
       "removeFormat",
+      "outdent",
+      "indent",
     ],
   },
   language: "en",

@@ -57,6 +57,10 @@ main .ck-editor[role='application'] {
 	justify-content: center;
 }
 
+.ck.ck-reset.ck-dropdown__panel {
+	width: 280px !important;
+}
+
 /* --------- DECOUPLED (DOCUMENT) BUILD. ---------------------------------------------*/
 body[data-editor='DecoupledDocumentEditor'] .document-editor__toolbar {
 	width: 100%;
