@@ -329,6 +329,62 @@ Editor.defaultConfig = {
       "Lato, Inter, sans-serif",
     ],
   },
+  fontSize: {
+    options: [
+      {
+        title: "Tiny",
+        model: "10px",
+        view: {
+          name: "span",
+          styles: {
+            "font-size": "10px",
+          },
+        },
+      },
+      {
+        title: "Small",
+        model: "12px",
+        view: {
+          name: "span",
+          styles: {
+            "font-size": "12px",
+          },
+        },
+      },
+      {
+        title: "Default",
+        model: "16px",
+        view: {
+          name: "span",
+          styles: {
+            "font-size": "16px",
+          },
+        },
+      },
+      {
+        title: "Big",
+        model: "18px",
+        view: {
+          name: "span",
+          styles: {
+            "font-size": "18px",
+          },
+        },
+      },
+      {
+        title: "Huge",
+        model: "24px",
+        view: {
+          name: "span",
+          styles: {
+            "font-size": "24px",
+          },
+        },
+      },
+    ],
+    supportAllValues: false, // Optional: set to true if you want to support custom values
+  },
+
   link: {
     defaultProtocol: "http://",
     decorators: [
