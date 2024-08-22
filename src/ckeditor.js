@@ -186,6 +186,7 @@ Editor.defaultConfig = {
       "fontFamily",
       "fontColor",
       "fontBackgroundColor",
+      "fontSize",
       "alignment",
       "bold",
       "italic",
