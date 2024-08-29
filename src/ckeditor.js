@@ -53,6 +53,7 @@ import Superscript from "@ckeditor/ckeditor5-basic-styles/src/superscript";
 import Link from "@ckeditor/ckeditor5-link/src/link";
 import AutoLink from "@ckeditor/ckeditor5-link/src/autolink";
 import { Indent, IndentBlock } from "@ckeditor/ckeditor5-indent";
+import Footnotes from "./plugins";
 
 class Editor extends ClassicEditor {}
 
@@ -169,6 +170,7 @@ Editor.builtinPlugins = [
   TextTransformation,
   // Title,
   StrapiMediaLib,
+  Footnotes,
   FindandReplace,
   SelectAll,
   Indent,
@@ -199,6 +201,7 @@ Editor.defaultConfig = {
       "underline",
       // "insertImage",
       "strapiMediaLib",
+      "Footnotes",
       "insertTable",
       "blockQuote",
       "mediaEmbed",

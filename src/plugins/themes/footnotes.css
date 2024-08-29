@@ -1,0 +1,20 @@
+.ck-dialog__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ck-dialog__input {
+  width: 100%;
+  padding: 5px;
+}
+
+.ck-button-save {
+  background-color: #4caf50;
+  color: white;
+}
+
+.ck-button-cancel {
+  background-color: #f44336;
+  color: white;
+}
