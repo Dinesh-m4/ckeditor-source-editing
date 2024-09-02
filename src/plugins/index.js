@@ -1,5 +1,6 @@
 import Plugin from "@ckeditor/ckeditor5-core/src/plugin";
 import ButtonView from "@ckeditor/ckeditor5-ui/src/button/buttonview";
+import "./themes/footnotes.css";
 
 export default class Footnotes extends Plugin {
   init() {
@@ -25,7 +26,15 @@ export default class Footnotes extends Plugin {
           const footnoteNumber = this._getNextFootnoteNumber();
           const isFirstFootnote = footnoteNumber === 1;
 
-          const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}">[${footnoteNumber}]</a></sup>`;
+          // Adding the tooltip using the title attribute
+          const footnoteLinkMarkup = `
+<sup id="footnote-ref-${footnoteNumber}" class="footnote-container">
+  <a class="footnote-link" href="#footnote-${footnoteNumber}" title="${headerText}: ${titleText}">[${footnoteNumber}]</a>
+  <div class="custom-tooltip">
+    <span>${headerText}: </span>
+    <a href="${url}" target="_blank">${titleText}</a>
+  </div>
+</sup>`;
 
           // Include the "Sources" heading if this is the first footnote
           const footnoteContentMarkup = `
