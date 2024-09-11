@@ -28,13 +28,24 @@ export default class Footnotes extends Plugin {
 
           // Adding the tooltip using the title attribute
           const footnoteLinkMarkup = `
+          <div>
 <sup id="footnote-ref-${footnoteNumber}" class="footnote-container">
   <a class="footnote-link" href="#footnote-${footnoteNumber}" title="${headerText}: ${titleText}">[${footnoteNumber}]</a>
   <div class="custom-tooltip">
     <span>${headerText}: </span>
     <a href="${url}" target="_blank">${titleText}</a>
   </div>
-</sup>`;
+</sup>
+<p>
+    <sup class="citation">
+      [CIA]
+      <span class="tooltip">
+        ${headerText} <a href="#footnote-${footnoteNumber}"target="_blank" rel="noopener noreferrer">${titleText}</a>
+      </span>
+    </sup>.
+  </p>
+</div>
+`;
 
           // Include the "Sources" heading if this is the first footnote
           const footnoteContentMarkup = `

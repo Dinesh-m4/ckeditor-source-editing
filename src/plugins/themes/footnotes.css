@@ -70,3 +70,49 @@
   border-style: solid;
   border-color: #333 transparent transparent transparent;
 }
+
+.citation {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.citation .tooltip {
+  visibility: hidden;
+  width: 220px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  z-index: 1;
+  top: 125%; /* Position below the citation */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 1px solid #ddd;
+}
+
+.citation .tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+}
+
+.citation:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip a {
+  color: blue;
+  text-decoration: underline;
+}
