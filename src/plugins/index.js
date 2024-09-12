@@ -24,12 +24,12 @@ export default class Footnotes extends Plugin {
         if (headerText && titleText && url) {
           const footnoteNumber = this._getNextFootnoteNumber();
           const isFirstFootnote = footnoteNumber === 1;
-
-          const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber} data-custom="${JSON.stringify({
+          const dataString = JSON.stringify({
             headerText,
             titleText,
-            url,
-          })}">[${footnoteNumber}]</a></sup>`;
+
+          })
+          const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}" data-custom=${dataString} >[${footnoteNumber}]</a></sup>`;
 
           // Include the "Sources" heading if this is the first footnote
           const footnoteContentMarkup = `
