@@ -27,7 +27,7 @@ export default class Footnotes extends Plugin {
           const dataString = JSON.stringify({
             headerText,
             titleText,
-
+            url
           })
           const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}" data-custom=${dataString} >[${footnoteNumber}]</a></sup>`;
 
