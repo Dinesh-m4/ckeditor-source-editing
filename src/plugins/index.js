@@ -1,6 +1,5 @@
 import Plugin from "@ckeditor/ckeditor5-core/src/plugin";
 import ButtonView from "@ckeditor/ckeditor5-ui/src/button/buttonview";
-import "./themes/footnotes.css";
 
 export default class Footnotes extends Plugin {
   init() {
@@ -26,26 +25,11 @@ export default class Footnotes extends Plugin {
           const footnoteNumber = this._getNextFootnoteNumber();
           const isFirstFootnote = footnoteNumber === 1;
 
-          // Adding the tooltip using the title attribute
-          const footnoteLinkMarkup = `
-          <div>
-<sup id="footnote-ref-${footnoteNumber}" class="footnote-container">
-  <a class="footnote-link" href="#footnote-${footnoteNumber}" title="${headerText}: ${titleText}">[${footnoteNumber}]</a>
-  <div class="custom-tooltip">
-    <span>${headerText}: </span>
-    <a href="${url}" target="_blank">${titleText}</a>
-  </div>
-</sup>
-<p>
-    <sup class="citation">
-      [CIA]
-      <span class="tooltip">
-        ${headerText} <a href="#footnote-${footnoteNumber}"target="_blank" rel="noopener noreferrer">${titleText}</a>
-      </span>
-    </sup>.
-  </p>
-</div>
-`;
+          const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber} data-custom="${JSON.stringify({
+            headerText,
+            titleText,
+            url,
+          })}">[${footnoteNumber}]</a></sup>`;
 
           // Include the "Sources" heading if this is the first footnote
           const footnoteContentMarkup = `
@@ -75,8 +59,8 @@ export default class Footnotes extends Plugin {
     const footnoteMatches = editorData.match(/<sup id="footnote-ref-(\d+)">/g);
     const footnoteNumbers = footnoteMatches
       ? footnoteMatches.map((match) =>
-          parseInt(match.match(/footnote-ref-(\d+)/)[1])
-        )
+        parseInt(match.match(/footnote-ref-(\d+)/)[1])
+      )
       : [];
     return footnoteNumbers.length > 0 ? Math.max(...footnoteNumbers) + 1 : 1;
   }

@@ -55,7 +55,7 @@ import AutoLink from "@ckeditor/ckeditor5-link/src/autolink";
 import { Indent, IndentBlock } from "@ckeditor/ckeditor5-indent";
 import Footnotes from "./plugins";
 
-class Editor extends ClassicEditor {}
+class Editor extends ClassicEditor { }
 
 function SpecialCharactersEmoji(editor) {
   editor.plugins.get("SpecialCharacters").addItems(
