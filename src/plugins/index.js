@@ -16,7 +16,6 @@ export default class Footnotes extends Plugin {
       });
 
       view.on("execute", () => {
-        // Open a custom dialog to capture the footnote details.
         const headerText = prompt("Enter header text:");
         const titleText = prompt("Enter title text:");
         const url = prompt("Enter URL:");
@@ -28,25 +27,20 @@ export default class Footnotes extends Plugin {
             headerText,
             titleText,
             url
-          })
-          const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}" data-custom=${dataString} >[${footnoteNumber}]</a></sup>`;
+          });
+          const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}" data-custom=${dataString}>[${footnoteNumber}]</a></sup>`;
 
-          // Include the "Sources" heading if this is the first footnote
           const footnoteContentMarkup = `
-  ${isFirstFootnote ? "<h3><strong>Sources</strong></h3>" : ""}
-  <div id="footnote-${footnoteNumber}" class="footnote">
-    ${footnoteNumber}. <strong>${headerText}</strong>. <a href="${url}" target="_blank">${titleText}</a>
-  </div>
-`;
+            <div id="footnote-${footnoteNumber}" class="footnote">
+              ${footnoteNumber}. <strong>${headerText}</strong>. <a href="${url}" target="_blank">${titleText}</a>
+            </div>
+          `;
 
-          // Insert the footnote reference at the current cursor position
-          const viewFragmentLink =
-            editor.data.processor.toView(footnoteLinkMarkup);
+          const viewFragmentLink = editor.data.processor.toView(footnoteLinkMarkup);
           const modelFragmentLink = editor.data.toModel(viewFragmentLink);
           editor.model.insertContent(modelFragmentLink);
 
-          // Append the footnote content to the bottom of the editor
-          this._appendFootnoteContent(editor, footnoteContentMarkup);
+          this._appendFootnoteContent(editor, footnoteContentMarkup, isFirstFootnote);
         }
       });
 
@@ -58,18 +52,39 @@ export default class Footnotes extends Plugin {
     const editorData = this.editor.getData();
     const footnoteMatches = editorData.match(/<sup id="footnote-ref-(\d+)">/g);
     const footnoteNumbers = footnoteMatches
-      ? footnoteMatches.map((match) =>
-        parseInt(match.match(/footnote-ref-(\d+)/)[1])
-      )
+      ? footnoteMatches.map((match) => parseInt(match.match(/footnote-ref-(\d+)/)[1]))
       : [];
     return footnoteNumbers.length > 0 ? Math.max(...footnoteNumbers) + 1 : 1;
   }
 
-  _appendFootnoteContent(editor, footnoteContentMarkup) {
-    const editorData = editor.getData();
+  _appendFootnoteContent(editor, footnoteContentMarkup, isFirstFootnote) {
+    let editorData = editor.getData();
 
-    // Append the footnote content at the bottom of the editor
-    const updatedData = `${editorData}<div class="footnotes-section">${footnoteContentMarkup}</div>`;
-    editor.setData(updatedData);
+    // If this is the first footnote, add the Sources heading with the plus button
+    if (isFirstFootnote) {
+      const sourcesSection = `
+        <h3>
+          <strong>Sources</strong>
+          <button id="toggle-footnotes" style="font-size: 20px; margin-left: 10px;">+</button>
+        </h3>
+        <div id="footnotes-section" style="display: none;">
+          ${footnoteContentMarkup}
+        </div>
+        <script>
+          document.getElementById('toggle-footnotes').addEventListener('click', function() {
+            const footnotesSection = document.getElementById('footnotes-section');
+            const isHidden = footnotesSection.style.display === 'none';
+            footnotesSection.style.display = isHidden ? 'block' : 'none';
+            this.textContent = isHidden ? '-' : '+';
+          });
+        </script>
+      `;
+      editorData = `${editorData}<div class="footnotes-section">${sourcesSection}</div>`;
+    } else {
+      // Append to existing footnotes section
+      editorData = editorData.replace('</div>', `${footnoteContentMarkup}</div>`);
+    }
+
+    editor.setData(editorData);
   }
 }
