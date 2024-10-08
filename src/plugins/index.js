@@ -10,14 +10,14 @@ export default class Footnotes extends Plugin {
       <div id="footnoteModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <h2>Footnote Details</h2>
+          <h4>Footnote Details</h4>
           <label for="headerText">Header Text:</label>
           <input type="text" id="headerText" name="headerText"><br><br>
           <label for="titleText">Title Text:</label>
           <input type="text" id="titleText" name="titleText"><br><br>
           <label for="url">URL:</label>
           <input type="text" id="url" name="url"><br><br>
-          <button id="submitFootnote">OK</button>
+          <button  class="success"id="submitFootnote">OK</button>
         </div>
       </div>
     `;
@@ -32,7 +32,7 @@ export default class Footnotes extends Plugin {
         display: none;
         position: fixed;
         z-index: 1;
-        padding-top: 40px;
+        padding-top: 200px;
         left: 0;
         top: 0;
         width: 100%;
@@ -61,6 +61,8 @@ export default class Footnotes extends Plugin {
         text-decoration: none;
         cursor: pointer;
       }
+
+     
     `;
     document.head.appendChild(style);
 
