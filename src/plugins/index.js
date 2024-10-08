@@ -5,6 +5,66 @@ export default class Footnotes extends Plugin {
   init() {
     const editor = this.editor;
 
+    // Inject modal HTML into the page when the plugin is initialized
+    const modalHTML = `
+      <div id="footnoteModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Footnote Details</h2>
+          <label for="headerText">Header Text:</label>
+          <input type="text" id="headerText" name="headerText"><br><br>
+          <label for="titleText">Title Text:</label>
+          <input type="text" id="titleText" name="titleText"><br><br>
+          <label for="url">URL:</label>
+          <input type="text" id="url" name="url"><br><br>
+          <button id="submitFootnote">OK</button>
+        </div>
+      </div>
+    `;
+
+    // Inject the modal into the document body
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+    // Add the CSS for the modal
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 40px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 10px;
+        border: 1px solid #888;
+        width: 40%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Add the footnotes button to CKEditor toolbar
     editor.ui.componentFactory.add("footnotes", (locale) => {
       const view = new ButtonView(locale);
 
@@ -16,38 +76,54 @@ export default class Footnotes extends Plugin {
       });
 
       view.on("execute", () => {
-        // Open a custom dialog to capture the footnote details.
-        const headerText = prompt("Enter header text:");
-        const titleText = prompt("Enter title text:");
-        const url = prompt("Enter URL:");
+        // Show the modal dialog when the button is clicked
+        const modal = document.getElementById("footnoteModal");
+        const closeButton = modal.querySelector(".close");
+        const submitButton = modal.querySelector("#submitFootnote");
 
-        if (headerText && titleText && url) {
-          const footnoteNumber = this._getNextFootnoteNumber();
-          const isFirstFootnote = footnoteNumber === 1;
-          const dataString = JSON.stringify({
-            headerText,
-            titleText,
-            url
-          })
-          const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}" data-custom=${dataString} >[${footnoteNumber}]</a></sup>`;
+        modal.style.display = "block"; // Show modal
 
-          // Include the "Sources" heading if this is the first footnote
-          const footnoteContentMarkup = `
-  ${isFirstFootnote ? "<h3><strong>Sources</strong></h3>" : ""}
-  <div id="footnote-${footnoteNumber}" class="footnote">
-    ${footnoteNumber}. <strong>${headerText}</strong>. <a href="${url}" target="_blank">${titleText}</a>
-  </div>
-`;
+        // Close modal when 'x' is clicked
+        closeButton.onclick = function () {
+          modal.style.display = "none";
+        };
 
-          // Insert the footnote reference at the current cursor position
-          const viewFragmentLink =
-            editor.data.processor.toView(footnoteLinkMarkup);
-          const modelFragmentLink = editor.data.toModel(viewFragmentLink);
-          editor.model.insertContent(modelFragmentLink);
+        // Handle form submission
+        submitButton.onclick = () => {
+          const headerText = document.getElementById("headerText").value;
+          const titleText = document.getElementById("titleText").value;
+          const url = document.getElementById("url").value;
 
-          // Append the footnote content to the bottom of the editor
-          this._appendFootnoteContent(editor, footnoteContentMarkup);
-        }
+          if (headerText && titleText && url) {
+            const footnoteNumber = this._getNextFootnoteNumber();
+            const isFirstFootnote = footnoteNumber === 1;
+            const dataString = JSON.stringify({ headerText, titleText, url });
+
+            const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}" data-custom=${dataString} >[${footnoteNumber}]</a></sup>`;
+
+            const footnoteContentMarkup = `
+              ${isFirstFootnote ? "<h3><strong>Sources</strong></h3>" : ""}
+              <div id="footnote-${footnoteNumber}" class="footnote">
+                ${footnoteNumber}. <strong>${headerText}</strong>. <a href="${url}" target="_blank">${titleText}</a>
+              </div>`;
+
+            // Insert footnote link and content
+            const viewFragmentLink =
+              editor.data.processor.toView(footnoteLinkMarkup);
+            const modelFragmentLink = editor.data.toModel(viewFragmentLink);
+            editor.model.insertContent(modelFragmentLink);
+
+            this._appendFootnoteContent(editor, footnoteContentMarkup);
+            modal.style.display = "none"; // Close modal after submission
+          }
+        };
+
+        // Close modal if user clicks outside of it
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        };
       });
 
       return view;
@@ -59,8 +135,8 @@ export default class Footnotes extends Plugin {
     const footnoteMatches = editorData.match(/<sup id="footnote-ref-(\d+)">/g);
     const footnoteNumbers = footnoteMatches
       ? footnoteMatches.map((match) =>
-        parseInt(match.match(/footnote-ref-(\d+)/)[1])
-      )
+          parseInt(match.match(/footnote-ref-(\d+)/)[1])
+        )
       : [];
     return footnoteNumbers.length > 0 ? Math.max(...footnoteNumbers) + 1 : 1;
   }
