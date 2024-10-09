@@ -10,7 +10,7 @@ export default class Footnotes extends Plugin {
       <div id="footnoteModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <h4>Footnote Details</h4>
+        
           <label for="headerText">Header Text:</label>
           <input type="text" id="headerText" name="headerText"><br><br>
           <label for="titleText">Title Text:</label>
