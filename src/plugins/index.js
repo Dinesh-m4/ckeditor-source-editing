@@ -121,7 +121,11 @@ export default class Footnotes extends Plugin {
             const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}" data-custom=${dataString}>[${footnoteNumber}]</a></sup>`;
 
             const footnoteContentMarkup = `
-              ${isFirstFootnote ? "<h3><strong>Sources</strong></h3>" : ""}
+              ${
+                isFirstFootnote
+                  ? "<h3 id='footnotes-source'><strong>Sources</strong></h3>"
+                  : ""
+              }
               <div id="footnote-${footnoteNumber}" class="footnote">
                 ${footnoteNumber}. <strong>${headerText}</strong>. <a href="${url}" target="_blank">${titleText}</a>
               </div>`;
