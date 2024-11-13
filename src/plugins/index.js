@@ -108,12 +108,51 @@ export default class Footnotes extends Plugin {
         };
 
         // Handle form submission
+        // submitButton.onclick = () => {
+        //   const headerText = document.getElementById("headerText").value;
+        //   const titleText = document.getElementById("titleText").value;
+        //   const url = document.getElementById("url").value;
+
+        //   if (headerText && titleText && url) {
+        //     const footnoteNumber = this._getNextFootnoteNumber();
+        //     const isFirstFootnote = footnoteNumber === 1;
+        //     const dataString = JSON.stringify({ headerText, titleText, url });
+
+        //     const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}" data-custom=${dataString}>[${footnoteNumber}]</a></sup>`;
+
+        //     const footnoteContentMarkup = `
+        //       ${
+        //         isFirstFootnote
+        //           ? "<h3 id='footnotes-source'><strong>Sources</strong></h3>"
+        //           : ""
+        //       }
+        //       <div id="footnote-${footnoteNumber}" class="footnote">
+        //         ${footnoteNumber}. <strong>${headerText}</strong>. <a href="${url}" target="_blank">${titleText}</a>
+        //       </div>`;
+
+        //     // Insert footnote link and content
+        //     const viewFragmentLink =
+        //       editor.data.processor.toView(footnoteLinkMarkup);
+        //     const modelFragmentLink = editor.data.toModel(viewFragmentLink);
+        //     editor.model.insertContent(modelFragmentLink);
+
+        //     this._appendFootnoteContent(editor, footnoteContentMarkup);
+
+        //     // Clear input fields after successful submission
+        //     document.getElementById("headerText").value = "";
+        //     document.getElementById("titleText").value = "";
+        //     document.getElementById("url").value = "";
+
+        //     modal.style.display = "none"; // Close modal after submission
+        //   }
+        // };
         submitButton.onclick = () => {
           const headerText = document.getElementById("headerText").value;
           const titleText = document.getElementById("titleText").value;
-          const url = document.getElementById("url").value;
+          const url = document.getElementById("url").value.trim();
 
-          if (headerText && titleText && url) {
+          // Check that only the URL field is not empty (after trimming)
+          if (url) {
             const footnoteNumber = this._getNextFootnoteNumber();
             const isFirstFootnote = footnoteNumber === 1;
             const dataString = JSON.stringify({ headerText, titleText, url });
