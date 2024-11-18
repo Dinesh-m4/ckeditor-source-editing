@@ -10,7 +10,6 @@ export default class Footnotes extends Plugin {
       <div id="footnoteModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-        
           <label for="headerText">Header Text:</label>
           <input type="text" id="headerText" name="headerText"><br><br>
           <label for="titleText">Title Text:</label>
@@ -28,58 +27,58 @@ export default class Footnotes extends Plugin {
     // Add the CSS for the modal
     const style = document.createElement("style");
     style.innerHTML = `
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      padding-top: 200px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-  
-    .modal-content {
-      background-color: #fefefe;
-      margin: auto;
-      padding: 10px;
-      border: 1px solid #888;
-      width: 40%;
-    }
-  
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-  
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  
-    /* OK Button Styles */
-    #submitFootnote {
-      background-color: #4CAF50; /* Green background */
-      color: white; /* White text */
-      border: 2px solid #4CAF50; /* Border with same color as background */
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px; /* Rounded corners */
-      transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
-    }
-  
-    /* Hover effect for OK Button */
-    #submitFootnote:hover {
-      background-color: white; /* White background on hover */
-      color: #4CAF50; /* Green text */
-      border-color: #4CAF50; /* Border color remains green */
-    }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 200px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 10px;
+        border: 1px solid #888;
+        width: 40%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* OK Button Styles */
+      #submitFootnote {
+        background-color: #4CAF50; /* Green background */
+        color: white; /* White text */
+        border: 2px solid #4CAF50; /* Border with same color as background */
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px; /* Rounded corners */
+        transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+      }
+
+      /* Hover effect for OK Button */
+      #submitFootnote:hover {
+        background-color: white; /* White background on hover */
+        color: #4CAF50; /* Green text */
+        border-color: #4CAF50; /* Border color remains green */
+      }
     `;
     document.head.appendChild(style);
 
@@ -109,14 +108,18 @@ export default class Footnotes extends Plugin {
 
         // Handle form submission
         submitButton.onclick = () => {
-          const headerText = document.getElementById("headerText").value;
-          const titleText = document.getElementById("titleText").value;
-          const url = document.getElementById("url").value;
+          const headerText = document.getElementById("headerText").value.trim();
+          const titleText = document.getElementById("titleText").value.trim();
+          const url = document.getElementById("url").value.trim();
 
           if (headerText && titleText && url) {
             const footnoteNumber = this._getNextFootnoteNumber();
             const isFirstFootnote = footnoteNumber === 1;
-            const dataString = JSON.stringify({ headerText, titleText, url });
+
+            // Safely encode values
+            const encodedHeaderText = encodeURIComponent(headerText);
+            const encodedTitleText = encodeURIComponent(titleText);
+            const encodedUrl = encodeURIComponent(url);
 
             const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}">[${footnoteNumber}]</a></sup>`;
 
@@ -130,15 +133,16 @@ export default class Footnotes extends Plugin {
                 ${footnoteNumber}. <strong>${headerText}</strong>. <a href="${url}" target="_blank">${titleText}</a>
               </div>`;
 
-            // Insert footnote link and content
+            // Insert the footnote link
             const viewFragmentLink =
               editor.data.processor.toView(footnoteLinkMarkup);
             const modelFragmentLink = editor.data.toModel(viewFragmentLink);
             editor.model.insertContent(modelFragmentLink);
 
+            // Append footnote content
             this._appendFootnoteContent(editor, footnoteContentMarkup);
 
-            // Clear input fields after successful submission
+            // Clear input fields after submission
             document.getElementById("headerText").value = "";
             document.getElementById("titleText").value = "";
             document.getElementById("url").value = "";
