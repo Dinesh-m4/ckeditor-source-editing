@@ -115,13 +115,15 @@ export default class Footnotes extends Plugin {
           if (headerText && titleText && url) {
             const footnoteNumber = this._getNextFootnoteNumber();
             const isFirstFootnote = footnoteNumber === 1;
+            const dataString = JSON.stringify({ headerText, titleText, url });
+            const encodedDataString = encodeURIComponent(dataString);
 
             // Safely encode values
             const encodedHeaderText = encodeURIComponent(headerText);
             const encodedTitleText = encodeURIComponent(titleText);
             const encodedUrl = encodeURIComponent(url);
 
-            const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}">[${footnoteNumber}]</a></sup>`;
+            const footnoteLinkMarkup = `<sup id="footnote-ref-${footnoteNumber}"><a href="#footnote-${footnoteNumber}" data-custom=${encodedDataString}>[${footnoteNumber}]</a></sup>`;
 
             const footnoteContentMarkup = `
               ${
