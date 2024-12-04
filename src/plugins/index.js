@@ -128,7 +128,7 @@ export default class Footnotes extends Plugin {
             const footnoteContentMarkup = `
               ${
                 isFirstFootnote
-                  ? "<h3 id='footnotes-source'><strong>Sources</strong></h3>"
+                  ? "<p id='footnotes-source'><strong>Sources</strong></p>"
                   : ""
               }
               <div id="footnote-${footnoteNumber}" class="footnote">
